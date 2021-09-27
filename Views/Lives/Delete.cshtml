@@ -1,0 +1,81 @@
+﻿@model Teste_Sponte_Live.Live
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel" style="padding: 20px">
+                <h2>Excluir</h2>
+
+                <h3>Tem certeza que deseja excluir?</h3>
+                <div>
+                    <h4>Live</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.nm_Live)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.nm_Live)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.dt_Live)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.dt_Live)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.hr_Live)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.hr_Live)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ds_tempo_Live)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ds_tempo_Live)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.vl_Live)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.vl_Live)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Instrutor.nm_Instrutores)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Instrutor.nm_Instrutores)
+                        </dd>
+
+                    </dl>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                    @Html.ActionLink("Retornar a lista anterior", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

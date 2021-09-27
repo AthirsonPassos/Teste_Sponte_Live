@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Teste_Sponte_Live.Instrutor>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel" style="padding: 20px">
+                <h2>Lista Instrutores</h2>
+
+                <p>
+                    @Html.ActionLink("Novo Cadastro", "Create")
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.nm_Instrutores)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.dt_Nasci_Instrutores)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.email_Instrutores)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.insta_Instrutores)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nm_Instrutores)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dt_Nasci_Instrutores)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.email_Instrutores)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.insta_Instrutores)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", null, new { id = item.Id_Instrutor }, new { @class = "btn btn-primary fa fa-pencil" }) |
+                                @Html.ActionLink("Detalhes", "Details", null, new { id = item.Id_Instrutor }, new { @class = "btn btn-success fa fa-check" }) |
+                                @Html.ActionLink("Excluir", "Delete", null, new { id = item.Id_Instrutor }, new { @class = "btn btn-danger fa fa-trash-o" })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

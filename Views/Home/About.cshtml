@@ -1,0 +1,36 @@
+﻿@model Teste_Sponte_Live.Inscricao
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<section class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel" style="padding: 20px">
+                <h2>Código de Barras</h2>
+
+                <div>
+                    <h4>Inscricao</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.vl_Inscricao)
+                        </dt>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.dt_Vencimento)
+                        </dt>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Retornar a lista anterior", "Index", null, new { @class = "btn btn-primary" })
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

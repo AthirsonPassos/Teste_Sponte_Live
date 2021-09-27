@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="masterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Inscrito">
+    <Key>
+      <PropertyRef Name="Id_Inscrito" />
+    </Key>
+    <Property Name="Id_Inscrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nm_Inscrito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dt_Nasci_Inscrito" Type="DateTime" Precision="0" />
+    <Property Name="email_Inscrito" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="insta_Inscrito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Inscricao" Relationship="Self.FK_Inscricao_Inscrito" FromRole="Inscrito" ToRole="Inscricao" />
+  </EntityType>
+  <EntityType Name="Instrutor">
+    <Key>
+      <PropertyRef Name="Id_Instrutor" />
+    </Key>
+    <Property Name="Id_Instrutor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nm_Instrutores" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dt_Nasci_Instrutores" Type="DateTime" Precision="0" />
+    <Property Name="email_Instrutores" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="insta_Instrutores" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Live" Relationship="Self.FK_Live_Instrutor" FromRole="Instrutor" ToRole="Live" />
+  </EntityType>
+  <EntityType Name="Live">
+    <Key>
+      <PropertyRef Name="Id_Live" />
+    </Key>
+    <Property Name="Id_Live" Type="Int32" Nullable="false" />
+    <Property Name="nm_Live" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Id_Instrutor" Type="Int32" Nullable="false" />
+    <Property Name="dt_Live" Type="DateTime" Precision="0" />
+    <Property Name="hr_Live" Type="Time" Precision="7" />
+    <Property Name="ds_tempo_Live" Type="Int32" />
+    <Property Name="vl_Live" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Instrutor" Relationship="Self.FK_Live_Instrutor" FromRole="Live" ToRole="Instrutor" />
+    <NavigationProperty Name="Inscricao" Relationship="Self.FK_Inscricao_Live" FromRole="Live" ToRole="Inscricao" />
+  </EntityType>
+  <EntityType Name="Inscricao">
+    <Key>
+      <PropertyRef Name="Id_Inscricao" />
+    </Key>
+    <Property Name="Id_Inscricao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Live" Type="Int32" />
+    <Property Name="Id_Inscrito" Type="Int32" />
+    <Property Name="vl_Inscricao" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="dt_Vencimento" Type="DateTime" Precision="0" />
+    <Property Name="status_Pag" Type="Byte" />
+    <NavigationProperty Name="Inscrito" Relationship="Self.FK_Inscricao_Inscrito" FromRole="Inscricao" ToRole="Inscrito" />
+    <NavigationProperty Name="Live" Relationship="Self.FK_Inscricao_Live" FromRole="Inscricao" ToRole="Live" />
+  </EntityType>
+  <Association Name="FK_Inscricao_Inscrito">
+    <End Role="Inscrito" Type="Self.Inscrito" Multiplicity="0..1" />
+    <End Role="Inscricao" Type="Self.Inscricao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inscrito">
+        <PropertyRef Name="Id_Inscrito" />
+      </Principal>
+      <Dependent Role="Inscricao">
+        <PropertyRef Name="Id_Inscrito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Live_Instrutor">
+    <End Role="Instrutor" Type="Self.Instrutor" Multiplicity="1" />
+    <End Role="Live" Type="Self.Live" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instrutor">
+        <PropertyRef Name="Id_Instrutor" />
+      </Principal>
+      <Dependent Role="Live">
+        <PropertyRef Name="Id_Instrutor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inscricao_Live">
+    <End Role="Live" Type="Self.Live" Multiplicity="0..1" />
+    <End Role="Inscricao" Type="Self.Inscricao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Live">
+        <PropertyRef Name="Id_Live" />
+      </Principal>
+      <Dependent Role="Inscricao">
+        <PropertyRef Name="Id_Live" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MeuBD" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Inscrito" EntityType="Self.Inscrito" />
+    <EntitySet Name="Instrutor" EntityType="Self.Instrutor" />
+    <EntitySet Name="Live" EntityType="Self.Live" />
+    <EntitySet Name="Inscricao" EntityType="Self.Inscricao" />
+    <AssociationSet Name="FK_Inscricao_Inscrito" Association="Self.FK_Inscricao_Inscrito">
+      <End Role="Inscrito" EntitySet="Inscrito" />
+      <End Role="Inscricao" EntitySet="Inscricao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Live_Instrutor" Association="Self.FK_Live_Instrutor">
+      <End Role="Instrutor" EntitySet="Instrutor" />
+      <End Role="Live" EntitySet="Live" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inscricao_Live" Association="Self.FK_Inscricao_Live">
+      <End Role="Live" EntitySet="Live" />
+      <End Role="Inscricao" EntitySet="Inscricao" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

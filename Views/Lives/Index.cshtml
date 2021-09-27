@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Teste_Sponte_Live.Live>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel" style="padding: 20px">
+                <h2>Lista de Lives</h2>
+
+                <p>
+                    @Html.ActionLink("Novo Cadastro", "Create")
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.nm_Live)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.dt_Live)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.hr_Live)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ds_tempo_Live)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.vl_Live)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Instrutor.nm_Instrutores)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nm_Live)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dt_Live)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.hr_Live)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ds_tempo_Live)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.vl_Live)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Instrutor.nm_Instrutores)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", null, new { id = item.Id_Live }, new { @class = "btn btn-primary fa fa-pencil" }) |
+                                @Html.ActionLink("Detalhes", "Details", null, new { id = item.Id_Live }, new { @class = "btn btn-success fa fa-check" }) |
+                                @Html.ActionLink("Excluir", "Delete", null, new { id = item.Id_Live }, new { @class = "btn btn-danger fa fa-trash-o" })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

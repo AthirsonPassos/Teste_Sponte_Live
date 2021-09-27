@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="masterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Inscricao">
+          <Key>
+            <PropertyRef Name="Id_Inscricao" />
+          </Key>
+          <Property Name="Id_Inscricao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Live" Type="int" />
+          <Property Name="Id_Inscrito" Type="int" />
+          <Property Name="vl_Inscricao" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="dt_Vencimento" Type="date" />
+          <Property Name="status_Pag" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Inscrito">
+          <Key>
+            <PropertyRef Name="Id_Inscrito" />
+          </Key>
+          <Property Name="Id_Inscrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nm_Inscrito" Type="varchar" MaxLength="50" />
+          <Property Name="dt_Nasci_Inscrito" Type="date" />
+          <Property Name="email_Inscrito" Type="nvarchar" MaxLength="50" />
+          <Property Name="insta_Inscrito" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Instrutor">
+          <Key>
+            <PropertyRef Name="Id_Instrutor" />
+          </Key>
+          <Property Name="Id_Instrutor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nm_Instrutores" Type="varchar" MaxLength="50" />
+          <Property Name="dt_Nasci_Instrutores" Type="date" />
+          <Property Name="email_Instrutores" Type="varchar" MaxLength="50" />
+          <Property Name="insta_Instrutores" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Live">
+          <Key>
+            <PropertyRef Name="Id_Live" />
+          </Key>
+          <Property Name="Id_Live" Type="int" Nullable="false" />
+          <Property Name="nm_Live" Type="varchar" MaxLength="50" />
+          <Property Name="Id_Instrutor" Type="int" Nullable="false" />
+          <Property Name="dt_Live" Type="date" />
+          <Property Name="hr_Live" Type="time" Precision="7" />
+          <Property Name="ds_tempo_Live" Type="int" />
+          <Property Name="vl_Live" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK_Inscricao_Inscrito">
+          <End Role="Inscrito" Type="Self.Inscrito" Multiplicity="0..1" />
+          <End Role="Inscricao" Type="Self.Inscricao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inscrito">
+              <PropertyRef Name="Id_Inscrito" />
+            </Principal>
+            <Dependent Role="Inscricao">
+              <PropertyRef Name="Id_Inscrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inscricao_Live">
+          <End Role="Live" Type="Self.Live" Multiplicity="0..1" />
+          <End Role="Inscricao" Type="Self.Inscricao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Live">
+              <PropertyRef Name="Id_Live" />
+            </Principal>
+            <Dependent Role="Inscricao">
+              <PropertyRef Name="Id_Live" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Live_Instrutor">
+          <End Role="Instrutor" Type="Self.Instrutor" Multiplicity="1" />
+          <End Role="Live" Type="Self.Live" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrutor">
+              <PropertyRef Name="Id_Instrutor" />
+            </Principal>
+            <Dependent Role="Live">
+              <PropertyRef Name="Id_Instrutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="masterModelStoreContainer">
+          <EntitySet Name="Inscricao" EntityType="Self.Inscricao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inscrito" EntityType="Self.Inscrito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instrutor" EntityType="Self.Instrutor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Live" EntityType="Self.Live" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Inscricao_Inscrito" Association="Self.FK_Inscricao_Inscrito">
+            <End Role="Inscrito" EntitySet="Inscrito" />
+            <End Role="Inscricao" EntitySet="Inscricao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inscricao_Live" Association="Self.FK_Inscricao_Live">
+            <End Role="Live" EntitySet="Live" />
+            <End Role="Inscricao" EntitySet="Inscricao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Live_Instrutor" Association="Self.FK_Live_Instrutor">
+            <End Role="Instrutor" EntitySet="Instrutor" />
+            <End Role="Live" EntitySet="Live" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="masterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Inscrito">
+          <Key>
+            <PropertyRef Name="Id_Inscrito" />
+          </Key>
+          <Property Name="Id_Inscrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_Inscrito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dt_Nasci_Inscrito" Type="DateTime" Precision="0" />
+          <Property Name="email_Inscrito" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="insta_Inscrito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Inscricao" Relationship="Self.FK_Inscricao_Inscrito" FromRole="Inscrito" ToRole="Inscricao" />
+        </EntityType>
+        <EntityType Name="Instrutor">
+          <Key>
+            <PropertyRef Name="Id_Instrutor" />
+          </Key>
+          <Property Name="Id_Instrutor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_Instrutores" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dt_Nasci_Instrutores" Type="DateTime" Precision="0" />
+          <Property Name="email_Instrutores" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="insta_Instrutores" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Live" Relationship="Self.FK_Live_Instrutor" FromRole="Instrutor" ToRole="Live" />
+        </EntityType>
+        <EntityType Name="Live">
+          <Key>
+            <PropertyRef Name="Id_Live" />
+          </Key>
+          <Property Name="Id_Live" Type="Int32" Nullable="false" />
+          <Property Name="nm_Live" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Id_Instrutor" Type="Int32" Nullable="false" />
+          <Property Name="dt_Live" Type="DateTime" Precision="0" />
+          <Property Name="hr_Live" Type="Time" Precision="7" />
+          <Property Name="ds_tempo_Live" Type="Int32" />
+          <Property Name="vl_Live" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Instrutor" Relationship="Self.FK_Live_Instrutor" FromRole="Live" ToRole="Instrutor" />
+          <NavigationProperty Name="Inscricao" Relationship="Self.FK_Inscricao_Live" FromRole="Live" ToRole="Inscricao" />
+        </EntityType>
+        <EntityType Name="Inscricao">
+          <Key>
+            <PropertyRef Name="Id_Inscricao" />
+          </Key>
+          <Property Name="Id_Inscricao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Live" Type="Int32" />
+          <Property Name="Id_Inscrito" Type="Int32" />
+          <Property Name="vl_Inscricao" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="dt_Vencimento" Type="DateTime" Precision="0" />
+          <Property Name="status_Pag" Type="Byte" />
+          <NavigationProperty Name="Inscrito" Relationship="Self.FK_Inscricao_Inscrito" FromRole="Inscricao" ToRole="Inscrito" />
+          <NavigationProperty Name="Live" Relationship="Self.FK_Inscricao_Live" FromRole="Inscricao" ToRole="Live" />
+        </EntityType>
+        <Association Name="FK_Inscricao_Inscrito">
+          <End Role="Inscrito" Type="Self.Inscrito" Multiplicity="0..1" />
+          <End Role="Inscricao" Type="Self.Inscricao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inscrito">
+              <PropertyRef Name="Id_Inscrito" />
+            </Principal>
+            <Dependent Role="Inscricao">
+              <PropertyRef Name="Id_Inscrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Live_Instrutor">
+          <End Role="Instrutor" Type="Self.Instrutor" Multiplicity="1" />
+          <End Role="Live" Type="Self.Live" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrutor">
+              <PropertyRef Name="Id_Instrutor" />
+            </Principal>
+            <Dependent Role="Live">
+              <PropertyRef Name="Id_Instrutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inscricao_Live">
+          <End Role="Live" Type="Self.Live" Multiplicity="0..1" />
+          <End Role="Inscricao" Type="Self.Inscricao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Live">
+              <PropertyRef Name="Id_Live" />
+            </Principal>
+            <Dependent Role="Inscricao">
+              <PropertyRef Name="Id_Live" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MeuBD" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Inscrito" EntityType="Self.Inscrito" />
+          <EntitySet Name="Instrutor" EntityType="Self.Instrutor" />
+          <EntitySet Name="Live" EntityType="Self.Live" />
+          <EntitySet Name="Inscricao" EntityType="Self.Inscricao" />
+          <AssociationSet Name="FK_Inscricao_Inscrito" Association="Self.FK_Inscricao_Inscrito">
+            <End Role="Inscrito" EntitySet="Inscrito" />
+            <End Role="Inscricao" EntitySet="Inscricao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Live_Instrutor" Association="Self.FK_Live_Instrutor">
+            <End Role="Instrutor" EntitySet="Instrutor" />
+            <End Role="Live" EntitySet="Live" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inscricao_Live" Association="Self.FK_Inscricao_Live">
+            <End Role="Live" EntitySet="Live" />
+            <End Role="Inscricao" EntitySet="Inscricao" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="masterModelStoreContainer" CdmEntityContainer="MeuBD">
+          <EntitySetMapping Name="Inscrito">
+            <EntityTypeMapping TypeName="masterModel.Inscrito">
+              <MappingFragment StoreEntitySet="Inscrito">
+                <ScalarProperty Name="Id_Inscrito" ColumnName="Id_Inscrito" />
+                <ScalarProperty Name="nm_Inscrito" ColumnName="nm_Inscrito" />
+                <ScalarProperty Name="dt_Nasci_Inscrito" ColumnName="dt_Nasci_Inscrito" />
+                <ScalarProperty Name="email_Inscrito" ColumnName="email_Inscrito" />
+                <ScalarProperty Name="insta_Inscrito" ColumnName="insta_Inscrito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instrutor">
+            <EntityTypeMapping TypeName="masterModel.Instrutor">
+              <MappingFragment StoreEntitySet="Instrutor">
+                <ScalarProperty Name="Id_Instrutor" ColumnName="Id_Instrutor" />
+                <ScalarProperty Name="nm_Instrutores" ColumnName="nm_Instrutores" />
+                <ScalarProperty Name="dt_Nasci_Instrutores" ColumnName="dt_Nasci_Instrutores" />
+                <ScalarProperty Name="email_Instrutores" ColumnName="email_Instrutores" />
+                <ScalarProperty Name="insta_Instrutores" ColumnName="insta_Instrutores" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Live">
+            <EntityTypeMapping TypeName="masterModel.Live">
+              <MappingFragment StoreEntitySet="Live">
+                <ScalarProperty Name="Id_Live" ColumnName="Id_Live" />
+                <ScalarProperty Name="nm_Live" ColumnName="nm_Live" />
+                <ScalarProperty Name="Id_Instrutor" ColumnName="Id_Instrutor" />
+                <ScalarProperty Name="dt_Live" ColumnName="dt_Live" />
+                <ScalarProperty Name="hr_Live" ColumnName="hr_Live" />
+                <ScalarProperty Name="ds_tempo_Live" ColumnName="ds_tempo_Live" />
+                <ScalarProperty Name="vl_Live" ColumnName="vl_Live" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inscricao">
+            <EntityTypeMapping TypeName="masterModel.Inscricao">
+              <MappingFragment StoreEntitySet="Inscricao">
+                <ScalarProperty Name="Id_Inscricao" ColumnName="Id_Inscricao" />
+                <ScalarProperty Name="Id_Live" ColumnName="Id_Live" />
+                <ScalarProperty Name="Id_Inscrito" ColumnName="Id_Inscrito" />
+                <ScalarProperty Name="vl_Inscricao" ColumnName="vl_Inscricao" />
+                <ScalarProperty Name="dt_Vencimento" ColumnName="dt_Vencimento" />
+                <ScalarProperty Name="status_Pag" ColumnName="status_Pag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

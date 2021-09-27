@@ -1,0 +1,60 @@
+﻿@model Teste_Sponte_Live.Instrutor
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="content-panel" style="padding: 20px">
+                <h2>Detalhes</h2>
+
+                <div>
+                    <h4>Instrutor</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.nm_Instrutores)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.nm_Instrutores)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.dt_Nasci_Instrutores)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.dt_Nasci_Instrutores)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.email_Instrutores)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.email_Instrutores)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.insta_Instrutores)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.insta_Instrutores)
+                        </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Editar", "Edit", null, new { id = Model.Id_Instrutor }, new { @class = "btn btn-send fa fa-pencil" }) |
+                    @Html.ActionLink("Retornar a lista anterior", "Index", null, new { @class = "btn btn-primary" })
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
